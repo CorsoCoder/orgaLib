@@ -1,0 +1,12 @@
+{% extends "library/base.html" %}
+{% load static %}
+{% block title %}update profile{% endblock %}
+{% block content %}
+
+<form method="POST" style="margin:0px 25% 5px 25%" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% include 'CRUD/form-style.html' with form=form %}
+    <button type="submit" class="btn btn-blue">Submit</button>
+</form>
+
+{% endblock %}

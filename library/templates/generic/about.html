@@ -1,0 +1,47 @@
+{% extends 'generic/base.html' %}
+{% load static %}
+{% block title %}about{% endblock %}
+{% block content %}
+<style>
+    @media (max-width: 960px) {
+        .center {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            text-align: center;
+        }
+        #waldoGame{
+            width: 100%;
+        }
+        }
+</style>
+<div class="center">
+    <h3>Web Page Developed by <span style="color:#2D9EC0">Álvaro Verdeguer</span> with <span style="color:#51BE95">Django==4.0.3</span> and <span style="color:red;">&lt;3</span> </h3>
+
+</div>
+<hr>
+<div id ="choose" onload="reset()" class="center">
+    <select id ="choose-selector"  class="select-waldo" onchange="document.getElementById('waldoGame').src = this.value">
+        <option value="/media/waldo/waldoEasy.jpg">Fácil</option>
+        <option value="/media/waldo/waldoMedium.jpg" selected>Normal</option>
+        <option value="/media/waldo/waldoHigh.jpg">Difícil</option>
+        <option value="/media/waldo/waldoExtreme.jpg">Extremo</option>
+      </select>
+</div>
+<br>
+<script>
+    $( document ).ready(function() {
+        $("#choose-selector").val("/media/waldo/waldoEasy.jpg");
+
+    });
+    </script>
+
+<img id="waldoGame" src="/media/waldo/waldoEasy.jpg">
+<!--<footer class="panel-footer navbar-fixed-bottom">
+    <div class="container">
+        <p class="text-center"><strong></strong></p>
+        <p class="text-center">©All rights reserved</p>
+        <h5 class="text-center"> Powered by&nbsp;<a href="/about">Django & Bootstrap</a></h5>
+    </div>
+</footer>-->
+{% endblock %}

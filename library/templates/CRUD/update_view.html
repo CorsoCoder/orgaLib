@@ -1,0 +1,29 @@
+{% extends "generic/base.html" %}
+{% load static %}
+{% block title %}Actualizar libro{% endblock %}
+{% block content %}
+
+<style>
+    input, select {width: 100%}
+</style>
+{{ form.media.css }}
+
+
+<form method="POST" style="margin:0px 25% 5px 25%" enctype="multipart/form-data">
+    <a href="{% url 'add_category'%}" target="_blank" onClick="window.open(/add_category/, this.target, 'width=400,height=300'); return false;"><i style="color: #286090;"class="fas fa-plus"></i><span> crear Categoría&#160;&#160;</span></a>
+    <a href="{% url 'add_author'%}" target="_blank" onClick="window.open(/add_author/, this.target, 'width=400,height=300'); return false;"><i style="color: #286090;"class="fas fa-plus"></i><span> crear Autor&#160;&#160;</span></a>
+    <a href="{% url 'add_publisher'%}" target="_blank" onClick="window.open(/add_publisher/, this.target, 'width=400,height=300'); return false;"><i style="color: #286090;"class="fas fa-plus"></i><span> crear Editorial</span></a>
+
+    <small><p>para ver los cambios tendrá que recargar la página</p></small>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-blue">Actualizar</button>
+</form>
+
+{{ form.media.js }}
+<script>
+    $(document).ready(function() {
+        $('.select2').select2();
+    });
+</script>
+{% endblock %}

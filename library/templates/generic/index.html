@@ -1,0 +1,34 @@
+{% extends 'generic/base.html' %}
+
+{% block title %} Search {% endblock %}
+
+
+{% block content %}
+
+<header class="center">
+    <h1 class="titulo">BIBLIOTECA <i class="fa-solid fa-book"></i></h1>
+</header>
+<br>
+<br>
+
+    <div class="container myContainer">
+        <form action="{% url 'book_search' %}" method="GET">
+            <div class="row col-lg-7 col-lg-offset-3">
+                {% for radio in searchForm.search_by %}
+                    <div class="radio-inline" style="margin:5px;">
+                        {{ radio }}
+                    </div>
+                {% endfor %}
+
+
+                <div class="input-group">
+                    {{ searchForm.keyword }}
+                    <span class="input-group-btn">
+                        <button id="color-change" class="btn btn-default btn-lg btn-info btn-blue" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                    </span>
+                </div>
+            </div>
+        </form>
+    </div>
+
+{% endblock %}

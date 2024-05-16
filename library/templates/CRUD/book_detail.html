@@ -1,0 +1,82 @@
+{% extends "generic/base.html" %}
+{% load static %}
+{% block title %}{{ book.title }}{% endblock %}
+
+
+
+{% block content %}
+
+<style>
+    @media (max-width: 960px) {
+        .btn-blue,.btn-danger,.btn-primary {
+            margin:0px 0px 5px 0px;
+            font-size: 100%;
+        }
+
+    }
+    a{
+        margin:0px 10px 10px 0px !important;
+    }
+  </style>
+    <div class="container myContainer">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="col-md-5">
+                    <div class="img-rounded">
+                      <img src="/media/{{ book.cover }}"  style="height: 480px;width:320px;" alt="{{ book.title }}">
+                    </div>
+
+                    <br><br><br>
+                </div>
+                <div class="col-md-6 col-md-offset-1">
+                    <h2 class="text-center">{{ book.title }}</h2>
+                    <h4 >descripción:</h4>
+                    <P>{{ book.description }}</p>
+                    <hr>
+                    <br>
+                    <h4>ISBN: {{ book.ISBN }}</h4>
+                    <h4>Autor: {{ book.author }}</h4>
+                    <h4>Editorial: {{ book.publisher }}</h4>
+                    <h4>Categorías:
+                        {% for category in book.category.all %}
+                            <a href="{% url 'category' category.name %}">
+                                {{ category.name }}
+                            </a> |
+                        {% endfor %}
+
+                    </h4>
+                    <h4>Estante: {{ book.place }}</h4>
+                    <br>
+                    {% if user.is_authenticated %}
+                        {% if reader.max_borrowing <= 0 %}
+                        <div class="alert alert-warning" style="background-color:#d9534f;border-radius:5px;" role="alert">
+                                ¡Has llegado al límite de tu cuota de libros prestados!
+                              </div>
+                        {% endif %}
+                        {% if book.quantity and reader.max_borrowing > 0   %}
+                        <a style="margin: 10px;" href="{% url 'borrow' book.id 'borrow' %}"><button type="button" class="btn btn-blue">prestar</button></a>
+                        {% else %}
+                        <a style="margin: 10px;" href="#"><button type="button" class="btn disabled btn-blue">prestar</button></a>
+
+                        {% endif %}
+                    <br>
+                    <br>
+                    <a style="margin: 10px;" href="{% url 'update' book.id  %}"><button type="button" class="btn btn-blue">actualizar</button></a>
+                    <a style="margin: 10px;" href="{% url 'delete' book.id  %}"><button type="button" class="btn btn-danger">borrar</button></a>
+                        {% if fav != 'no' %}
+                            <a style="margin: 10px;" href="{% url 'removefav' book.id  %}"><button type="button" class="btn btn-danger"><i class="fas fa-heart-broken"></i></button></a>
+                        {% else %}
+                            <a style="margin: 10px;" href="{% url 'addtofav' book.id  %}"><button type="button" class="btn btn-danger"><i class="fa-solid fa-heart"></i></button></a>
+                        {% endif %}
+
+                    {% else %}
+                        <p style="color:red">registrate para: editar / borrar / <i class="fa-solid fa-heart"></i> / coger prestado / el libro</p>
+                    {% endif %}
+                    <hr>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

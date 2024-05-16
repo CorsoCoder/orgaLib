@@ -1,0 +1,86 @@
+{% extends 'generic/base.html' %}
+
+{% block title %} register {% endblock %}
+
+{% load static %}
+<link href="{% static 'library/css/signin.css' %}" rel="stylesheet">
+
+{% block content %}
+
+{% if state %}
+<div id="alert-box" class="alert" style="display:flex;justify-content:space-between;height: 10%;">
+    {% if state == 'success' %}
+    <script>document.getElementById("alert-box").classList.toggle('-blue')</script>
+        <h2> success！ </h2>
+
+    {% elif state == 'user_exist' %}
+        <h3> Este usuario ya existe </h3>
+
+    {% elif state == 'empty_password' %}
+        <h3> No se ha introducido ninguna contraseña </h3>
+
+    {% elif state == 'empty_repeat_password' %}
+        <h3> repeat password field is empty </h3>
+
+    {% elif state == 'empty' %}
+        <h3> Hay algún campo vacio </h3>
+
+    {% elif state == 'empty_email' %}
+        <h3>No se ha introducido ningún email </h3>
+
+    {% elif state == 'wrong_extension' %}
+        <h3> Solo se aceptan fotos en formato "png, jpg, jpeg o gif" </h3>
+
+    {% elif state == 'wrong_email' %}
+        <h3>'email no valido' </h3>
+
+    {% elif state == 'repeat_error' %}
+        <h3> Las contraseñas no coinciden </h3>
+
+
+    {% endif %}
+
+    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+
+  </div>
+
+{% endif %}
+
+
+    <div  class="container myContainer">
+
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3 col-sm-10 col-sm-offset-1">
+
+                <form method="POST" action="/register/" role="form" class="form-horizontal" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <h1 class="form-signin-heading text-center">Registrarse</h1>
+
+                    {% for field in registerForm %}
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">{{ field.label }}</label>
+                            <div class="col-md-9">
+                                {{ field }}
+                            </div>
+                        </div>
+                    {% endfor %}
+
+
+                    <div class="form-group">
+                        <div class="col-md-9 col-md-offset-3">
+                            <button class="btn btn btn-primary btn-block btn-blue" type="submit">register</button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.getElementById("id_photo").setAttribute('required', '');
+    </script>
+
+{% endblock %}
+
+
+

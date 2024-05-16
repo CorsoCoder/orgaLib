@@ -1,0 +1,100 @@
+{% extends 'generic/base.html' %}
+{% block title %}categoría{% endblock %}
+
+{% block content %}
+
+<style>
+    @media (max-width: 960px) {
+        .btn-blue,.btn-danger {
+            margin:0px 0px 5px 0px;
+            width: 80px;
+            font-size: 100%;
+        }
+        }
+</style>
+<h1> {{cats}} </h1>
+
+        <!--<h2 id='hint' class="label-success col-md-5 col-md-offset-2">below{{ search_by }}match'{{ keyword }}'theResultOf</h2>-->
+        <table class="table table-hover">
+            <thead>
+        <th>#</th>
+        <th>portada</th>
+        <th>título</th>
+        <th id="displaynone">autor</th>
+        <th id="displaynone">Clasificación</th>
+        <th id="displaynone">Localización</th>
+        <th>Edit</th>
+            </thead>
+            <tbody>
+            {% for book in category_books %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>
+                        <a href="   ">
+                            <img class="img-responsive"
+                                 src="/media/{{ book.cover }}"
+                                 width="83"
+                                 height="118"
+                                 alt="{{ book.title }}">
+                        </a>
+                    </td>
+                    <td><a href="{% url 'detail' book.id  %}">{{ book.title }}</a></td>
+                    <td id="displaynone">{{ book.author }}
+                    <td id="displaynone">
+                        {% for category in book.category.all %}
+                            <a href="{% url 'category' category.name %}">
+                                {{ category.name }}
+                            </a>
+                        <br>
+                        {% endfor %}
+                    </td>
+                    <td id="displaynone">{{ book.place }}</td>
+                    <td>
+                        {% if user.is_authenticated %}
+                        </div>
+                            <a style="margin: 10px;" href="{% url 'update' book.id  %}"><button type="button" class="btn btn-blue">actualizar</button></a>
+                            <a style="margin: 10px;" href="{% url 'delete' book.id  %}"><button type="button" class="btn btn-danger">borrar</button></a>
+
+                        </div>
+                        {% else %}
+                        <p style="color:red">registrate para: editar / borrar / <i class="fa-solid fa-heart"></i> / coger prestado / el libro</p>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td>Aun no hay libros</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <nav class="myContainer">
+            <ul class="pager">
+                {% if category_books.has_previous %}
+                    <li class="previous"><a
+                            href="{% url 'category' category_books.id.id  category_books.previous_page_number  $}">Anterior</a>
+                    </li>
+                {% else %}
+                    <li class="previous disabled"><a href="#">Anterior</a></li>
+                {% endif %}
+                {{ category_books.number }} / {{ category_books.paginator.num_pages }}Página
+                {% if category_books.has_next %}
+                    <li class="next"><a
+                            href="{{ current_path }}/{{ .next_page_number }}">Siguiente</a>
+                    </li>
+                {% else %}
+                    <li class="next disabled"><a href="#">Siguiente</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+    <script>
+        if (window.innerWidth < 960) {
+            const elements = document.querySelectorAll(`[id^="displaynone"]`);
+            for (i = 0; i < elements.length; i++) {
+                elements[i].classList.add('displaynone');
+            }
+            }
+    </script>
+{% endblock %}

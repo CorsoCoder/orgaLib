@@ -1,0 +1,15 @@
+{% extends 'generic/base.html' %}
+{% block title %} Nueva categoría {% endblock %}
+
+{% block content %}
+    <ul>
+        {% for category in categories %}
+            <li>
+                <a href="{% url 'category'  category.name  %}">{{ category.name }}</a><span>({{ category.book_count }})</span>
+            </li>
+        {% endfor%}
+    </ul>
+
+
+
+{% endblock %}

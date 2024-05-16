@@ -1,0 +1,13 @@
+{% extends 'generic/base.html' %}
+
+{% block title %} actualizar perfil {% endblock %}
+
+{% load static %}
+<link href="{% static 'library/css/signin.css' %}" rel="stylesheet">
+
+{% block content %}
+
+<form method="post">{% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Update">
+</form>

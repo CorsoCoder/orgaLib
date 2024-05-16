@@ -1,0 +1,31 @@
+{% extends 'generic/base.html' %}
+{% block title %} Nueva categoría {% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<br/>
+{% for field in form %}
+    <div class="" style="width: 400px;height: 300px;display:block;">
+        <h1 style="margin:5px 0px 5px 10px"> Añadir {% if field.name == 'name' %}categoría{% elif field.name == 'author' %}autor{% elif field.name == 'publisher' %}editorial{% else %}localización{% endif %}</h1>
+        <form style="margin:5px 0px 5px 10px" method="POST">
+            {% csrf_token %} 
+                {{ field }}
+{% endfor %}
+        <br/>
+        <button class="btn btn-primary" style="margin:5px 0px 5px 0px" > Crear </button>
+        <small><p style="color: #af4c4c;">para ver los cambios tendrá que recargar la página</p>
+            <p>no se pueden crear categorias que contengan "ñ"</p>
+    </form>
+</div>
+{% else %}
+No esta permitido el acceso a usuarios sin cuenta. registrese por favor.
+<a href="{% url 'user_register' %}">registrarse</a>
+
+{% endif %}
+
+<script>
+$("#id_name").keyup(function () {
+    this.value = this.value.replace(/ /g, "-");
+});
+</script>
+{% endblock %}

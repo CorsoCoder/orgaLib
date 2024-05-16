@@ -1,0 +1,51 @@
+{% extends 'generic/base.html' %}
+
+{% block title %} login {% endblock %}
+
+{% load static %}
+<link href="{% static 'library/css/signin.css' %}" rel="stylesheet">
+
+{% block content %}
+
+    {% if state == 'not_exist_or_password_error' %}
+    <div id="alert-box" class="alert" style="display:flex;justify-content:space-between;height: 10%;">
+        <h3>Contraseña incorrecta o el usuario especificado no existe.</h3>
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+
+    </div>
+    {% endif %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3 col-sm-10 col-sm-offset-1">
+
+
+                <form method="POST" role="form" class="form-horizontal" action="/login/">
+                    {% csrf_token %}
+                    <h1 class="form-signin-heading text-center">iniciar sesión</h1>
+
+                    {% for field in loginForm %}
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">{{ field.label }}</label>
+                            <div class="col-md-9">
+                                {{ field }}
+                            </div>
+                        </div>
+                    {% endfor %}
+
+
+                    <div class="form-group">
+                        <div class="col-md-9 col-md-offset-3">
+                            <button class="btn btn btn-blue btn-block btn-blue" type="submit">iniciar</button>
+                            <p>¿se te ha olvidado la contraseña? contacta con el administrador por <a  href="mailto:alvaroverdeguer@addinformatica.com" >correo</a></p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+
