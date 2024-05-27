@@ -17,7 +17,7 @@ un programa basado en **Django** diseñado para la organización de bibliotecas 
 Este proyecto organiza los libros por categorías, con datos relevantes como el autor, titulo, ISBN.. . 
 Además, cuenta con un sistema de usuario que permite marcar libros como favoritos y gestionar los libros prestados.
 
-### $${\color{yellow}Características Destacadas 🌟}$$
+### $${\color{yellow}Características \space Destacadas 🌟}$$
 
 | **Característica**       | **Descripción**                                                                                                 |
 |--------------------------|---------------------------------------------------------------------------------------------------------------|
@@ -30,7 +30,7 @@ Además, cuenta con un sistema de usuario que permite marcar libros como favorit
 
 <br>
 
-### $${\color{red}Comienza Ahora 🚀}$$
+### $${\color{red}Comienza \space Ahora 🚀}$$
 
 ¡Empieza a organizar tu biblioteca con OrgaLib!
 
